@@ -91,7 +91,7 @@ class Path():
 
     return cls
 
-  def rotate(cls, angle, origin = cls.center)
+  def rotate(cls, angle, origin = 0):
     for point in cls.points:
       point.rotate(angle, origin)
 
