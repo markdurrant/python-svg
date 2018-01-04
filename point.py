@@ -46,7 +46,7 @@ class Point():
     else:
       distance = math.fabs(math.sqrt(a * a + b * b))
 
-    return distance
+    return abs(distance)
 
   def angleTo(cls, point):
     a = cls.x - point.x

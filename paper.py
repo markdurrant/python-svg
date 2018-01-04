@@ -27,7 +27,7 @@ class Paper():
     f.write(cls.render())
     f.close()
     
-    print("saved" + filename)
+    print("saved " + filename)
 
   def getLog(cls):
     log = "\u2B1A Paper [ width = {}, height = {} ]" \

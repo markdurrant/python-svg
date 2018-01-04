@@ -21,17 +21,22 @@ class Path():
     left = cls.points[1].x
 
     for point in(cls.points):
-      if point.y > top:
+      if point.y < top:
         top = point.y
-      if point.y < bottom:
+      if point.y > bottom:
         bottom = point.y
-      if point.x > right:
-        right = point.y
-      if point.x < left:
-        left = point.y
+      if point.x < right:
+        right = point.x
+      if point.x > left:
+        left = point.x
 
     hCenter = left + (right - left) / 2
-    vCenter = bottom + (top - bottom) / 2
+    vCenter = top + (bottom - top) / 2
+
+    cls.left = left
+    cls.right = right
+    cls.top = top
+    cls.bottom = bottom
 
     cls.topLeft      = Point(left, top)
     cls.topCenter    = Point(hCenter, top)
@@ -91,10 +96,24 @@ class Path():
 
     return cls
 
-  def rotate(cls, angle, origin = 0):
+  def rotate(cls, angle, origin = None):
+    if not origin:
+      origin = cls.center
+
     for point in cls.points:
       point.rotate(angle, origin)
 
+    cls.setBox()
+
+    return cls
+
+  def scale(cls, factor):
+    for point in cls.points:
+      direction = cls.center.angleTo(point)
+      length = cls.center.distanceTo(point)
+
+      point.moveVector(direction, length * factor - length)
+    
     cls.setBox()
 
     return cls
