@@ -1,24 +1,28 @@
 #!/usr/bin/env python3
 
 import textwrap
+import copy
 
 from point import Point
 
 class Path():
 
-  def __init__(self, points = [], closed = False):
+  def __init__(self, points = None, closed = False):
     self.label = "Path"
-    self.points = points
-    self.closed = closed
 
-    if len(self.points) > 0:
+    if points is None:
+      self.points = []
+    else:
+      self.points = points
       self.setBox()
 
+    self.closed = closed
+
   def setBox(cls):
-    top = cls.points[1].y
-    bottom = cls.points[1].y
-    right = cls.points[1].x
-    left = cls.points[1].x
+    top = cls.points[0].y
+    bottom = cls.points[0].y
+    right = cls.points[0].x
+    left = cls.points[0].x
 
     for point in(cls.points):
       if point.y < top:
@@ -115,6 +119,52 @@ class Path():
       point.moveVector(direction, length * factor - length)
     
     cls.setBox()
+
+    return cls
+
+  def length(cls):
+    length = 0
+    
+    for p, point in enumerate(cls.points[:-1]):
+      length += point.distanceTo(cls.points[p + 1])
+
+    if cls.closed == True:
+      length += cls.points[0].distanceTo(cls.points[-1])
+
+    return length
+
+  def pointAtDistance(cls, distance):
+    pointAD = None
+
+    for p, point in enumerate(cls.points[:-1]):
+      segmentLength = point.distanceTo(cls.points[p + 1])
+
+    if distance > segmentLength:
+      distance = distance - segmentLength
+    elif distance >= 0:
+      angle = point.angleTo(cls.points[p + 1])
+
+      pointAD = Point(point.x, point.y)
+      pointAD.moveVector(angle, distance)
+
+      distance = distance - segmentLength
+      
+    return pointAD
+
+  def intersectsSelf():
+    print("NOT YET IMPLIMENTED")
+
+  def intersections():
+    print("NOT YET IMPLIMENTED")
+
+  def equalTo():
+    print("NOT YET IMPLIMENTED")
+
+  def clone(cls):
+    return copy.deepcopy(cls)
+
+  def setPen(cls, pen):
+    pen.paths.append(cls)
 
     return cls
 

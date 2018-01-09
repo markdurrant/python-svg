@@ -10,10 +10,7 @@ class Point():
     self.x = x
     self.y = y
 
-  def move(cls, x = 0, y = 0):
-    if x and y == 0:
-      y = x
-
+  def move(cls, x, y):
     cls.x += x
     cls.y += y
 

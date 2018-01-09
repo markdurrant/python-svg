@@ -1,48 +1,52 @@
 #!/usr/bin/env python3
 
+from random import *
+
 from paper import Paper
 from pen import Pen
 from path import Path
 from point import Point
 
-myDrawing = Paper(width = 400, height = 400)
 
-size = 100
-center = { 'x': myDrawing.width / 2, 'y': myDrawing.height / 2}
+fuscia = Pen(weight = 1, color = "#f09")
+cyan = Pen(weight = 1, color = "#09f")
+black = Pen(weight = 1)
 
-myX = center['x']
-myY = center['y']
+paper = Paper(pens = [cyan, fuscia, black], width = 105, height = 148)
 
-myDrawing.pens = [Pen(
-  paths = [Path(
-    points = [
-      Point(myX + size, myY + size),
-      Point(myX + size, myY - size),
-      Point(myX - size, myY - size),
-      Point(myX - size, myY + size)
-    ],
-    closed = True
-  )],
-  weight = 10
-)]
-
-myPath = myDrawing.pens[0].paths[0]
-
-myPath.rotate(45)
-
-def movePoint(point):
-  direction = myPath.center.angleTo(point)
-  length = myPath.center.distanceTo(point)
-  factor = 1.5
-
-  print("direction", direction, "length", length)
-
-  point.moveVector(direction, length * factor - length)
-
-movePoint(myPath.points[0])
-movePoint(myPath.points[1])
-movePoint(myPath.points[2])
-movePoint(myPath.points[3])
+paper.log()
 
 
-myDrawing.save("test.svg")
+squareSize = 40
+square = Path(points = [
+  Point(paper.center.x + squareSize / 2, paper.center.y + squareSize / 2),
+  Point(paper.center.x + squareSize / 2, paper.center.y - squareSize / 2),
+  Point(paper.center.x - squareSize / 2, paper.center.y - squareSize / 2),
+  Point(paper.center.x - squareSize / 2, paper.center.y + squareSize / 2)
+], closed = True)
+
+guideTop = Point(square.right + squareSize * random(), square.bottom)
+guideBottom = Point(square.right + squareSize * random(), square.topCenter.y - uniform(8, 20))
+
+guide = Path(points = [guideTop, guideBottom])
+
+numLines = 34
+
+for o in range(1, numLines - 1):
+  offset = o * (square.bottom - square.top) / (numLines - 1)
+
+  Path(points = [
+    Point(square.bottomLeft.x, square.bottomLeft.y - offset),
+    guide.pointAtDistance(guide.length() / (numLines - 1) * o),
+    Point(square.bottomRight.x, square.bottomRight.y - offset),
+  ]).setPen(black)
+
+Path(points = [
+  square.topLeft,
+  square.bottomLeft,
+  square.bottomRight,
+  square.topRight,
+  guide.points[1]
+], closed = True).setPen(black)
+
+paper.save("test.svg")
