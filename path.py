@@ -184,6 +184,21 @@ class Path():
 
     return '<path d="' + pathTag + '"/>'
 
+  def renderGCode(cls):
+    gCode = ""
+
+    for p in cls.points:
+      gCode += "\nG1 X{} Y{}".format(p.x, p.y)
+
+    gCode += "\M03 S1000"
+
+    if cls.closed == True:
+      gCode += "\G1 X{} Y{}".format(cls.points[0].x, cls.points[0].y)
+
+    gCode += "\nM05 S1000"
+
+    return gCode
+
   def getLog(cls):
     log = "\u2B20  Path [ closed = {} ]".format(cls.closed)
     pointLog = ""

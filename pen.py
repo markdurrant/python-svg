@@ -94,9 +94,6 @@ class Pen():
 
     return cls
 
-  # def moveVector(cls, direction, length):
-  #   # for 
-
   def render(cls):
     penTag = '<g style="fill: none; stroke-linecap: round;' \
       'stroke-linejoin: round; stroke-width: {}; stroke: {};">' \
@@ -106,6 +103,23 @@ class Pen():
       penTag += "\n  " + path.render()
 
     return penTag + '\n</g>'
+
+  def renderGCode(cls):
+    gCode = "F10000\nM05 S0\nG1 X0 Y0"
+
+    for p in cls.paths:
+      gCode += "\n" + p.renderGCode()
+
+    gCode += "\n\nM05 S0\nG1 X0 Y0"
+
+    return gCode
+
+  def saveGcode(cls, filename):
+    f = open(filename,'w')
+    f.write(cls.renderGCode())
+    f.close()
+    
+    print("saved " + filename)
 
   def getLog(cls):
     log = "\u2571 Pen [ weight = {},  color = {}]".format(cls.weight, cls.color)

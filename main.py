@@ -31,8 +31,8 @@ pointB = square.bottomLeft.clone()
 pointC = square.bottomRight.clone()
 pointD = Point(square.topRight.x, square.topRight.y + uniform(4, 16))
 
-pointE = Point(square.right + squareSize * random(), square.topCenter.y - uniform(2, 6))
-pointF = Point(square.right + squareSize * random(), square.bottom + uniform(2, 6))
+pointE = Point(square.right + squareSize * random(), square.topCenter.y - uniform(2, 8))
+pointF = Point(square.right + squareSize * random(), square.bottom + uniform(1, 4))
 
 
 guideX = drawGuide(pointA, pointB)
@@ -53,29 +53,5 @@ for l in range(1, numLines):
 
 Path(points = [pointA, pointB, pointF, pointC, pointD, pointE], closed = True).setPen(black)
 
-
-# guideTop = Point(square.right + squareSize * random(), square.bottom)
-# guideBottom = Point(square.right + squareSize * random(), square.topCenter.y - uniform(8, 20))
-
-# guide = Path(points = [guideTop, guideBottom])
-
-# numLines = 34
-
-# for o in range(1, numLines - 1):
-#   offset = o * (square.bottom - square.top) / (numLines - 1)
-
-#   Path(points = [
-#     Point(square.bottomLeft.x, square.bottomLeft.y - offset),
-#     guide.pointAtDistance(guide.length() / (numLines - 1) * o),
-#     Point(square.bottomRight.x, square.bottomRight.y - offset),
-#   ]).setPen(black)
-
-# Path(points = [
-#   square.topLeft,
-#   square.bottomLeft,
-#   square.bottomRight,
-#   square.topRight,
-#   guide.points[1]
-# ], closed = True).setPen(black)
-
+black.saveGcode("test.nc")
 paper.save("test.svg")
