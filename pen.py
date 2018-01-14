@@ -94,6 +94,17 @@ class Pen():
 
     return cls
 
+  def rotate(cls, angle, origin = None):
+    if not origin:
+      origin = cls.center
+
+    for p in cls.paths:
+      p.rotate(angle, origin)
+
+    cls.setBox()
+
+    return cls
+
   def render(cls):
     penTag = '<g style="fill: none; stroke-linecap: round;' \
       'stroke-linejoin: round; stroke-width: {}; stroke: {};">' \

@@ -18,7 +18,7 @@ def drawGuide(p1, p2):
   return Path(points = [p1, p2]).setPen(fuscia)
 
 
-squareSize = 60
+squareSize = 50
 square = Path(points = [
   Point(paper.center.x + squareSize / 2, paper.center.y + squareSize / 2),
   Point(paper.center.x + squareSize / 2, paper.center.y - squareSize / 2),
@@ -26,10 +26,10 @@ square = Path(points = [
   Point(paper.center.x - squareSize / 2, paper.center.y + squareSize / 2)
 ], closed = True).setPen(cyan)
 
-pointA = Point(square.topLeft.x, square.topLeft.y + uniform(4, 16))
+pointA = Point(square.topLeft.x, square.topLeft.y + uniform(2, 12))
 pointB = square.bottomLeft.clone()
 pointC = square.bottomRight.clone()
-pointD = Point(square.topRight.x, square.topRight.y + uniform(4, 16))
+pointD = Point(square.topRight.x, square.topRight.y + uniform(2, 12))
 
 pointE = Point(square.right + squareSize * random(), square.topCenter.y - uniform(2, 8))
 pointF = Point(square.right + squareSize * random(), square.bottom + uniform(1, 4))
@@ -39,7 +39,7 @@ guideX = drawGuide(pointA, pointB)
 guideY = drawGuide(pointE, pointF)
 guideZ = drawGuide(pointD, pointC)
 
-numLines = 16
+numLines = 14
 numLines = numLines - 1
 
 for l in range(1, numLines):

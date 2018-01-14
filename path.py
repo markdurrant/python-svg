@@ -187,10 +187,11 @@ class Path():
   def renderGCode(cls):
     gCode = ""
 
-    for p in cls.points:
+    for i, p in enumerate(cls.points):
       gCode += "\nG1 X{} Y{}".format(p.x, p.y)
 
-    gCode += "\M03 S1000"
+      if i == 0:
+        gCode += "\nM03 S1000"
 
     if cls.closed == True:
       gCode += "\G1 X{} Y{}".format(cls.points[0].x, cls.points[0].y)
