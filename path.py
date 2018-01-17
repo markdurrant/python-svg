@@ -189,12 +189,13 @@ class Path():
 
     for i, p in enumerate(cls.points):
       gCode += "\nG1 X{} Y{}".format(p.x, p.y)
+      p.log()
 
       if i == 0:
         gCode += "\nM03 S1000"
 
     if cls.closed == True:
-      gCode += "\G1 X{} Y{}".format(cls.points[0].x, cls.points[0].y)
+      gCode += "\nG1 X{} Y{}".format(cls.points[0].x, cls.points[0].y)
 
     gCode += "\nM05 S1000"
 

@@ -10,20 +10,20 @@ from point import Point
 
 fuscia = Pen(weight = 0.5, color = "#f09")
 cyan = Pen(weight = 0.25, color = "#09f")
-black = Pen(weight = 2.5)
+black = Pen(weight = 1)
 
-paper = Paper(pens = [black], width = 105, height = 148)
+paper = Paper(pens = [black], width = 105, height = 73)
 
 def drawGuide(p1, p2): 
   return Path(points = [p1, p2]).setPen(fuscia)
 
 
-squareSize = 50
+squareSize = 34
 square = Path(points = [
-  Point(paper.center.x + squareSize / 2, paper.center.y + squareSize / 2),
-  Point(paper.center.x + squareSize / 2, paper.center.y - squareSize / 2),
-  Point(paper.center.x - squareSize / 2, paper.center.y - squareSize / 2),
-  Point(paper.center.x - squareSize / 2, paper.center.y + squareSize / 2)
+  Point(paper.center.x + squareSize / 2, paper.center.y + squareSize / 2 + 3),
+  Point(paper.center.x + squareSize / 2, paper.center.y - squareSize / 2 + 3),
+  Point(paper.center.x - squareSize / 2, paper.center.y - squareSize / 2 + 3),
+  Point(paper.center.x - squareSize / 2, paper.center.y + squareSize / 2 + 3)
 ], closed = True).setPen(cyan)
 
 pointA = Point(square.topLeft.x, square.topLeft.y + uniform(2, 12))
@@ -32,14 +32,14 @@ pointC = square.bottomRight.clone()
 pointD = Point(square.topRight.x, square.topRight.y + uniform(2, 12))
 
 pointE = Point(square.right + squareSize * random(), square.topCenter.y - uniform(2, 8))
-pointF = Point(square.right + squareSize * random(), square.bottom + uniform(1, 4))
+pointF = Point(square.right + squareSize * random(), square.bottom)
 
 
 guideX = drawGuide(pointA, pointB)
 guideY = drawGuide(pointE, pointF)
 guideZ = drawGuide(pointD, pointC)
 
-numLines = 14
+numLines = 54
 numLines = numLines - 1
 
 for l in range(1, numLines):
