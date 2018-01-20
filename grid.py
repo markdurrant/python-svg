@@ -12,7 +12,7 @@ fuscia = Pen(weight = 0.5, color = "#f09")
 cyan = Pen(weight = 0.5, color = "#09f")
 black = Pen(weight = 0.25)
 
-paper = Paper(pens = [black, cyan, fuscia], width = 148, height = 105)
+paper = Paper(pens = [black, cyan, fuscia], width = 105, height = 74)
 
 def drawDot(p):
   size = 0.5
@@ -31,7 +31,7 @@ def drawDot(p):
     p3
   ], closed = True).setPen(fuscia)
 
-squareSize = 50
+squareSize = 40
 square = Path(points = [
   Point(paper.center.x + squareSize / 2, paper.center.y + squareSize / 2),
   Point(paper.center.x + squareSize / 2, paper.center.y - squareSize / 2),
@@ -39,7 +39,7 @@ square = Path(points = [
   Point(paper.center.x - squareSize / 2, paper.center.y + squareSize / 2)
 ], closed = True)
 
-divisions = 24
+divisions = 36
 
 pointList = []
 
@@ -63,7 +63,7 @@ for p in pointList:
   d = p.distanceTo(spotLight)
   a = p.angleTo(spotLight)
 
-  m = (40 - d) / 6 
+  m = (40 - d) / 5
 
   if m > d:
     m = d
@@ -74,7 +74,7 @@ for p in pointList:
   d = p.distanceTo(spotLight2)
   a = p.angleTo(spotLight2)
 
-  m = (40 - d) / 6 
+  m = (40 - d) / 5
 
   if m > d:
     m = d
@@ -85,7 +85,7 @@ for p in pointList:
   d = p.distanceTo(spotLight3)
   a = p.angleTo(spotLight3)
 
-  m = (40 - d) / 6 
+  m = (40 - d) / 5
 
   if m > d:
     m = d
@@ -104,5 +104,5 @@ for i in range(divisions):
   Path(rowList).setPen(black)
   Path(colList).setPen(black)
 
-
+black.saveGcode('grid.nc')
 paper.save('grid.svg')
