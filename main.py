@@ -38,7 +38,7 @@ spotlight = Point(
   paper.center.y + random() * squareSize - squareSize / 2
 )
 
-for i in range(1, 1200):
+for i in range(1, 600):
   dashPoint = Point(
     paper.center.x + random() * squareSize - squareSize / 2,
     paper.center.y + random() * squareSize - squareSize / 2
@@ -51,5 +51,5 @@ for i in range(1, 1200):
 
   drawDash(dashPoint, 2.5 - abs(dashPoint.distanceTo(spotlight)) / 8).setPen(dashPen)
 
-# black.saveGcode("test.nc")
-paper.save("test.svg")
+# black.saveGcode("dashes.nc")
+paper.save("dashes.svg")

@@ -9,7 +9,7 @@ from point import Point
 
 fuscia = Pen(weight = 0.5, color = "#f09")
 cyan = Pen(weight = 0.5, color = "#09f")
-black = Pen(weight = 0.5)
+black = Pen(weight = 0.35)
 
 paper = Paper(pens = [black], width = 105, height = 73)
 
@@ -28,13 +28,16 @@ def randomise(path, distance):
     p.moveVector(360 * random(), distance * random())
 
 
-bigSize = 38
-smallSize = random() * 8 + 4
+bigSize = 32
+smallSize = random() * 8
 
 bigSquare = getSquare(paper.center, bigSize).setPen(cyan)
+
+randSize = 50
+
 smallSquare = getSquare(Point(
-  paper.center.x + bigSize * random() - bigSize / 2,
-  paper.center.y + bigSize * random() - bigSize / 2),
+  paper.center.x + randSize * random() - randSize / 2,
+  paper.center.y + randSize * random() - randSize / 2),
 smallSize).setPen(cyan)
 
 
@@ -47,7 +50,7 @@ guideB = Path(points = [bigSquare.points[1], smallSquare.points[1]]).setPen(fusc
 guideC = Path(points = [bigSquare.points[2], smallSquare.points[2]]).setPen(fuscia)
 guideD = Path(points = [bigSquare.points[3], smallSquare.points[3]]).setPen(fuscia)
 
-numLines = 14
+numLines = 12
 
 for l in range(numLines + 1):
   Path(points = [
@@ -57,4 +60,6 @@ for l in range(numLines + 1):
     guideD.pointAtDistance((guideD.length() / numLines) * l)
   ], closed = True).setPen(black)
 
+
+black.saveGcode("two-square.nc")
 paper.save("two-square.svg")
